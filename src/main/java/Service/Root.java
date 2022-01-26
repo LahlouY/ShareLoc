@@ -1,5 +1,6 @@
 package Service;
 
+import auth.Secured;
 import dbMySQL.UserDb;
 import model.User;
 
@@ -38,5 +39,13 @@ public class Root {
     @Produces(MediaType.APPLICATION_JSON)
     public User updateUser(User user) throws SystemException, NamingException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
         return userDb.updateUser(user);
+    }
+
+    @GET
+    @Secured
+    @Path("auth-{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User mySecuredMethod(@PathParam("id") int id){
+        return userDb.getUser(id);
     }
 }

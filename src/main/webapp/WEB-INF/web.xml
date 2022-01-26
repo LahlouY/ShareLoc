@@ -8,7 +8,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>Service</param-value>
+            <param-value>Service;auth</param-value>
         </init-param>
     </servlet>
 
