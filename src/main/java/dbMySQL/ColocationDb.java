@@ -24,4 +24,17 @@ public class ColocationDb {
 
         return colocation;
     }
+    public Colocation getColocation(int id){
+
+        Colocation colocation = entityDb.entitymanager.find(Colocation.class,id);
+        return colocation;
+    }
+    public Colocation updateColocation(Colocation colocation) throws NamingException, SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+        UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+        transaction.begin();
+        entityDb.entitymanager.merge(colocation);
+        entityDb.entitymanager.joinTransaction();
+        transaction.commit();
+        return colocation;
+    }
 }

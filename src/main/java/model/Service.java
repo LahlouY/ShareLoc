@@ -1,17 +1,27 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Service {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String title;
     private String description;
     private int cost;
 
-    public Service(int id, String title, String description, int cost) {
+    public Service(String title, String description, int cost) {
         super();
-        this.id = id;
         this.title = title;
         this.description = description;
         this.cost = cost;
+    }
+
+    public Service() {
+
     }
 
     public int getId() {
