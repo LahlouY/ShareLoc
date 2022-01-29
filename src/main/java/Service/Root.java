@@ -33,6 +33,13 @@ public class Root {
         return userDb.getUser(id);
     }
 
+    @Path("getemail")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUserEmailPass(@QueryParam("email") String email,@QueryParam("password")String password){
+        return userDb.getUserEmailPass(email,password);
+    }
+
     @Path("update")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

@@ -30,6 +30,14 @@ public class UserDb {
         User user = entityDb.entitymanager.find(User.class,id);
         return user;
     }
+
+    public User getUserEmailPass(String email, String password){
+
+        return (User) entityDb.entitymanager.createQuery("select u FROM User u where u.email = :email and u.password = :password")
+                .setParameter("email",email)
+                .setParameter("password",password)
+                .getSingleResult();
+    }
     public User updateUser(User user) throws NamingException, SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
