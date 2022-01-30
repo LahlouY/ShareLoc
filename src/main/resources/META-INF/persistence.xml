@@ -10,6 +10,10 @@
         <class>model.User</class>
         <class>model.Colocation</class>
         <class>model.Service</class>
+        <class>model.AchievedService</class>
+        <class>model.Image</class>
+        <class>model.Message</class>
+        <class>model.Score</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action"
                       value="create"/>

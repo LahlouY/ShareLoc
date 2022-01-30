@@ -2,6 +2,7 @@ package model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,60 +10,86 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "colocation")
-public class Colocation {
+public class Colocation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int colocId;
-    private String nameColocation;
-    private int userAdmin;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    @OneToOne
+    private User admin;
+    @OneToMany
+    private List<User> members;
+    @OneToMany
+    private List<Message> messages;
 
-    @ElementCollection // 1
-    @CollectionTable(name = "colocation_members", joinColumns = @JoinColumn(name = "id")) // 2
-    @Column(name = "members") // 3
-    private List<Integer> membersId;
-
-    public Colocation(String nameColocation, int userAdmin) {
-        super();
-        this.nameColocation = nameColocation;
-        this.userAdmin = userAdmin;
-        membersId = new ArrayList<>();
-    }
-
-    public Colocation() {
+    public Colocation(){
 
     }
 
-    public int getColocId() {
-        return colocId;
+    public Colocation(String name, User admin){
+        this.name = name;
+        this.admin = admin;
+        this.members = new ArrayList<>();
+        members.add(admin);
+        this.messages = new ArrayList<>();
     }
 
-    public void setColocId(int colocId) {
-        this.colocId = colocId;
+    public Long getId() {
+        return id;
     }
 
-    public String getNameColocation() {
-        return nameColocation;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNameColocation(String nameColocation) {
-        this.nameColocation = nameColocation;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public int getUserAdmin() {
-        return userAdmin;
+    public String getName() {
+        return name;
     }
 
-    public void setUserAdmin(int userAdmin) {
-        this.userAdmin = userAdmin;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<Integer> getMembersId() {
-        return membersId;
+    public User getAdmin() {
+        return admin;
     }
 
-    public void setMembersId(List<Integer> membersId) {
-        this.membersId = membersId;
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public void addMember(User user){
+        this.members.add(user);
+    }
+
+    public void addMessage(Message message){
+        this.messages.add(message);
+    }
+
+    public List<Message> getMessages(){
+        return this.messages;
+    }
+
+    @Override
+    public String toString() {
+        return "Colocation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", admin=" + admin +
+                ", members=" + members +
+                '}';
     }
 }

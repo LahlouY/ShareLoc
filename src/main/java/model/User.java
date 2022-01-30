@@ -1,37 +1,47 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table
-public class User {
+@JsonIgnoreProperties({"password"})
+public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private String firstName;
-    private String lastName;
-
-    public User(String email, String password, String firstName, String lastName) {
-        super();
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    private String firstname;
+    private String lastname;
+    @OneToMany
+    private List<Score> scores;
+    @OneToOne
+    private Image image;
 
     public User() {
-        super();
     }
 
-    public int getUserId() {
-        return userId;
+    public User(String email, String password, String firstname, String lastname) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.scores = new ArrayList<Score>();
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -42,6 +52,22 @@ public class User {
         this.email = email;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -50,20 +76,30 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public List<Score> getScores() {
+        return this.scores;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setScores(List<Score> scores){
+        this.scores = scores;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Image getImage() {
+        return image;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
