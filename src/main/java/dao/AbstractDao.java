@@ -61,6 +61,7 @@ public class AbstractDao<T> {
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
         em.merge(entite);
+        em.joinTransaction();
         transaction.commit();
     }
 
@@ -74,6 +75,7 @@ public class AbstractDao<T> {
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
         transaction.begin();
         em.remove(getEntityManager().merge(entite));
+        em.joinTransaction();
         transaction.commit();
     }
 
