@@ -1,5 +1,6 @@
 package Api;
 
+import io.swagger.annotations.Api;
 import manager.ServiceManager;
 import model.Service;
 
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("service")
+@Api
 public class ServiceServices extends AbstractServices<Service>{
 
     public ServiceServices() {

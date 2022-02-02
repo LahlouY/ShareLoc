@@ -21,16 +21,7 @@ public class AchievedServiceManager extends DaoManager {
         super();
     }
 
-    /**
-     * Declare the realization of a service
-     *
-     * @param email
-     * @param serviceID
-     * @param date
-     * @param picture
-     * @param to_emails
-     * @return
-     */
+
     public static boolean newAchievedService(String email, Long serviceID,
                                              String date, String picture, List<String> to_emails) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
 

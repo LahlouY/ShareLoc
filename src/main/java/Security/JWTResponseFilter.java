@@ -11,7 +11,6 @@ public class JWTResponseFilter implements ContainerResponseFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        // si l'authentification a réussi, on recopie le JWT dans la réponse
         if (requestContext.getProperty("auth-failed") != null) {
             Boolean failed = (Boolean) requestContext.getProperty("auth-failed");
             if (failed) {

@@ -13,13 +13,7 @@ public class ColocationManager extends DaoManager {
         super();
     }
 
-    /**
-     * Creates a new colocation
-     *
-     * @param name
-     * @param admin_email
-     * @return
-     */
+
     public static boolean createColocation(String name, String admin_email) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         User admin = getUser(admin_email);
         if (admin != null && getColocation(name) == null) {
@@ -35,14 +29,7 @@ public class ColocationManager extends DaoManager {
         return false;
     }
 
-    /**
-     * Invite an user into a colocation if user exist
-     *
-     * @param name
-     * @param admin_email
-     * @param email
-     * @return
-     */
+
     public static boolean inviteUserIntoColocation(String name, String admin_email, String email) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         Colocation colocation = getColocation(name);
         User invited = getUser(email);
@@ -64,13 +51,7 @@ public class ColocationManager extends DaoManager {
         return false;
     }
 
-    /**
-     * If user has admin rights, remove the colocation
-     *
-     * @param name
-     * @param email
-     * @return
-     */
+
     public static boolean removeColocation(String name, String email) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         Colocation colocation = getColocation(name);
         if (colocation != null && email.equals(colocation.getAdmin().getEmail())) {
@@ -80,14 +61,7 @@ public class ColocationManager extends DaoManager {
         return false;
     }
 
-    /**
-     * IF user has admin rights, edit the colocation name
-     *
-     * @param name
-     * @param admin_email
-     * @param newName
-     * @return
-     */
+
     public static boolean editColocationName(String name, String admin_email, String newName) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         Colocation colocation = getColocation(name);
         User admin = getUser(admin_email);
@@ -99,14 +73,7 @@ public class ColocationManager extends DaoManager {
         return false;
     }
 
-    /**
-     * If user has admin rights, remove a member from the colocation
-     *
-     * @param name
-     * @param admin_email
-     * @param member_email
-     * @return
-     */
+
     public static boolean removeMemberFromColoc(String name, String admin_email, String member_email) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         User admin = getUser(admin_email);
         User toDelete = getUser(member_email);
@@ -122,13 +89,7 @@ public class ColocationManager extends DaoManager {
         return false;
     }
 
-    /**
-     * Return a string message according to the user with the highest score in the colocation
-     *
-     * @param email
-     * @param name
-     * @return
-     */
+
     public static String getBestUser(String email, String name) {
         User user = getUser(email);
         Colocation colocation = getColocation(name);

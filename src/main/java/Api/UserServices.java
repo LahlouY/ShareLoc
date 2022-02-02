@@ -1,5 +1,6 @@
 package Api;
 
+import io.swagger.annotations.Api;
 import manager.UserManager;
 import model.User;
 
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("user")
+@Api
 public class UserServices extends AbstractServices<User> {
 
     public UserServices() {

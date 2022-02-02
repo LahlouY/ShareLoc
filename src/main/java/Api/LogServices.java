@@ -2,6 +2,8 @@ package Api;
 
 import Security.JWTokenUtility;
 import Security.SigninNeeded;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import manager.UserManager;
 import model.User;
 
@@ -19,6 +21,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("auth")
+@Api
 public class LogServices {
 
     public LogServices() {

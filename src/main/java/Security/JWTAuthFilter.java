@@ -29,12 +29,10 @@ public class JWTAuthFilter implements ContainerRequestFilter {
         if (authHeader == null)
             throw new NotAuthorizedException("Bearer");
 
-        // récupération du JWT et vérification de la signature
         if (authHeader.startsWith("Bearer")) {
             try {
-                // test de validation de la signature et décodage du contenu du token
+
                 final String subject = validate(authHeader.split(" ")[1]);
-                // définition du contexte de sécurité
                 final SecurityContext securityContext = requestContext.getSecurityContext();
                 if (subject != null) {
                     System.out.println("Subject not null ! ");
@@ -79,22 +77,13 @@ public class JWTAuthFilter implements ContainerRequestFilter {
         }
     }
 
-    /**
-     * Méthode de validation d'un JWT
-     *
-     * @param jwt le token à tester
-     * @return le contenu du token décryté s'il est valide, null sinon
-     * @throws InvalidJwtException si le token n'est pas valide
-     */
     private String validate(String jwt) throws InvalidJwtException {
         String subject = null;
         RsaJsonWebKey rsaJsonWebKey = RsaKeyProducer.produce();
 
-        // construction du décodeur de JWT
         JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireSubject()
                 .setVerificationKey(rsaJsonWebKey.getKey())
                 .build();
-// validation du JWT et récupération du contenu
         JwtClaims jwtClaims = jwtConsumer.processToClaims(jwt);
         subject = (String) jwtClaims.getClaimValue("sub");
 

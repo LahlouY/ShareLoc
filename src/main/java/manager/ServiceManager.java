@@ -13,16 +13,6 @@ public class ServiceManager extends DaoManager {
         super();
     }
 
-    /**
-     * Creates a new service
-     *
-     * @param email
-     * @param colocationName
-     * @param title
-     * @param description
-     * @param cost
-     * @return
-     */
     public static boolean createService(String email, String colocationName, String title, String description, int cost) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
         User creator = getUser(email);
         Colocation colocation = getColocation(colocationName);

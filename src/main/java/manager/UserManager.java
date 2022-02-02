@@ -11,15 +11,6 @@ public class UserManager extends DaoManager {
         super();
     }
 
-    /**
-     * Creates an new user
-     *
-     * @param email
-     * @param password
-     * @param firstname
-     * @param lastname
-     * @return
-     */
     public static boolean createUser(String email, String password, String firstname, String lastname) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
         if (getUser(email) == null) {
             if (!(email.equals("") && password.equals("") && firstname.equals("") && lastname.equals(""))) {
@@ -31,13 +22,6 @@ public class UserManager extends DaoManager {
         return false;
     }
 
-    /**
-     * Return true if login is successful
-     *
-     * @param email
-     * @param password
-     * @return
-     */
     public static User login(String email, String password) {
         User u = getUser(email);
         if (u != null && u.getPassword().equals(password))
@@ -45,15 +29,7 @@ public class UserManager extends DaoManager {
         return null;
     }
 
-    /**
-     * Edit user firstname or lastname
-     *
-     * @param email
-     * @param password
-     * @param firstname
-     * @param lastname
-     * @return
-     */
+
     public static boolean editUser(String email, String password, String firstname, String lastname) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         User user = getUser(email);
         if (user.getPassword().equals(password)) {
@@ -67,13 +43,7 @@ public class UserManager extends DaoManager {
         return false;
     }
 
-    /**
-     * Remove user from colocation
-     *
-     * @param email
-     * @param name
-     * @return
-     */
+
     public static boolean quitColocation(String email, String name) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         User user = getUser(email);
         Colocation colocation = getColocation(name);
@@ -85,14 +55,6 @@ public class UserManager extends DaoManager {
         return false;
     }
 
-    /**
-     * User vote for a service
-     *
-     * @param email
-     * @param serviceID
-     * @param vote
-     * @return
-     */
     public static boolean vote(String email, Long serviceID, int vote) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, NotSupportedException, RollbackException {
         User user = getUser(email);
         Service service = serviceDao.find(serviceID);
@@ -131,9 +93,6 @@ public class UserManager extends DaoManager {
         }
 
         Score userScore = getUserScoreIntoColocation(colocation,from);
-
-        // validator != user who achieved the service
-        // and is into the list of users who benefit of the service
         if (!validator.equals(from) && achievedService.getTo().contains(validator)) {
             if (validated) {
                 int cost = achievedService.getService().getCost();

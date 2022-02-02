@@ -9,14 +9,9 @@ import java.util.logging.Logger;
 
 public class RsaKeyProducer {
 
-    // clé RSA
+
     private static RsaJsonWebKey theOne;
 
-    /**
-     * Méthode produisant une nouvelle clé si elle n'existe pas encore
-     *
-     * @return la clé générée
-     */
     public static RsaJsonWebKey produce() {
         if (theOne == null) {
             try {

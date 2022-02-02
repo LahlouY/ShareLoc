@@ -4,17 +4,30 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>APIV</servlet-name>
+        <servlet-name>SHARELOC</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>Api</param-value>
+            <param-value>io.swagger.jaxrs.listing,Api,Security</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>Jersey2Config</servlet-name>
+        <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+        <init-param>
+            <param-name>api.version</param-name>
+            <param-value>1.0.0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://localhost:8080/ShareLocc-1.0</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
 
     <servlet-mapping>
-        <servlet-name>APIV</servlet-name>
+        <servlet-name>SHARELOC</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>

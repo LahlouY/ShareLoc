@@ -1,5 +1,6 @@
 package Api;
 
+import io.swagger.annotations.Api;
 import manager.AchievedServiceManager;
 import model.AchievedService;
 
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("achievedService")
+@Api
 public class AchievedServiceServices extends AbstractServices<AchievedService> {
 
     public AchievedServiceServices() {

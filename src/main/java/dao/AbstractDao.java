@@ -23,12 +23,7 @@ public class AbstractDao<T> {
         this.clazz = clazz;
     }
 
-    /**
-     * Methode abstraite a definir dans chaque sous-classe qui renvoie
-     * l'EntityManager correspondant a la classe.
-     *
-     * @return l'entity manager
-     */
+
     protected EntityManager getEntityManager() {
         if (entityManager == null) {
             entityManager = emf.createEntityManager();
@@ -36,11 +31,7 @@ public class AbstractDao<T> {
         return entityManager;
     }
 
-    /**
-     * Methode de creation d'un objet (ajout dans la base).
-     *
-     * @param entite
-     */
+
     public T create(T entite) throws HeuristicRollbackException, SystemException, HeuristicMixedException, RollbackException, NotSupportedException, NamingException {
         final EntityManager em = getEntityManager();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
@@ -51,11 +42,7 @@ public class AbstractDao<T> {
         return entite;
     }
 
-    /**
-     * Methode de modification d'un objet.
-     *
-     * @param entite
-     */
+
     public void edit(T entite) throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException, NamingException {
         final EntityManager em = getEntityManager();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
@@ -65,11 +52,7 @@ public class AbstractDao<T> {
         transaction.commit();
     }
 
-    /**
-     * Methode de suppression d'un objet.
-     *
-     * @param entite
-     */
+
     public void remove(T entite) throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException, NamingException {
         final EntityManager em = getEntityManager();
         UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
@@ -79,22 +62,12 @@ public class AbstractDao<T> {
         transaction.commit();
     }
 
-    /**
-     * Methode de recherche d'un objet a partir de son identifiant.
-     *
-     * @param id
-     * @return
-     * @return
-     */
+
     public T find(Object id) {
         return getEntityManager().find(clazz, id);
     }
 
-    /**
-     * Methode recherchant tous les objets de ce type.
-     *
-     * @return
-     */
+
     public List<T> findAll() {
         final EntityManager em = getEntityManager();
         final CriteriaQuery<T> criteriaQuery = em.getCriteriaBuilder().createQuery(clazz);
@@ -106,11 +79,7 @@ public class AbstractDao<T> {
         return results;
     }
 
-    /**
-     * Methode renvoyant le nombre d'objet de ce type.
-     *
-     * @return
-     */
+
     public long count() {
         final EntityManager em = getEntityManager();
         final CriteriaQuery<Long> cq = em.getCriteriaBuilder().createQuery(Long.class);
@@ -120,12 +89,7 @@ public class AbstractDao<T> {
         return (Long) q.getSingleResult();
     }
 
-    /**
-     * Return an instance of the Entity by table value
-     * @param table
-     * @param value
-     * @return
-     */
+
     public T findByTable(String table, String value) {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);

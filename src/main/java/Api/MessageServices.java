@@ -1,5 +1,6 @@
 package Api;
 
+import io.swagger.annotations.Api;
 import manager.MessageManager;
 import model.Message;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("message")
+@Api
 public class MessageServices extends AbstractServices<Message> {
 
     public MessageServices() {
