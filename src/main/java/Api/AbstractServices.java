@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import dao.AbstractDao;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,7 +22,7 @@ public class AbstractServices<T> {
         this.dao = new AbstractDao<T>(serviceClass);
     }
 
-
+    @SigninNeeded
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "get all")
@@ -32,6 +33,7 @@ public class AbstractServices<T> {
                 .build();
     }
 
+    @SigninNeeded
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)

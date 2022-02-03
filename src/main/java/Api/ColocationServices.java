@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import io.swagger.annotations.*;
 import manager.ColocationManager;
 import model.Colocation;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("colocation")
+@SigninNeeded
 @Api
 public class ColocationServices extends AbstractServices<Colocation> {
 

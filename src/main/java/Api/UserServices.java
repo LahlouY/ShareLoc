@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import io.swagger.annotations.*;
 import manager.UserManager;
 import model.User;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("user")
+@SigninNeeded
 @Api
 public class UserServices extends AbstractServices<User> {
 

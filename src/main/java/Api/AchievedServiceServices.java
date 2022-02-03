@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import io.swagger.annotations.*;
 import manager.AchievedServiceManager;
 import model.AchievedService;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("achievedService")
+@SigninNeeded
 @Api
 public class AchievedServiceServices extends AbstractServices<AchievedService> {
 

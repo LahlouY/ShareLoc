@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import io.swagger.annotations.*;
 import manager.MessageManager;
 import model.Message;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("message")
+@SigninNeeded
 @Api
 public class MessageServices extends AbstractServices<Message> {
 
