@@ -1,6 +1,6 @@
 package Api;
 
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import manager.ServiceManager;
 import model.Service;
 
@@ -24,11 +24,14 @@ public class ServiceServices extends AbstractServices<Service>{
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newService(@QueryParam("email") String email,
-                               @QueryParam("name") String colocationName,
-                               @QueryParam("title") String title,
-                               @QueryParam("description") String description,
-                               @QueryParam("cost") int cost) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
+    @ApiOperation(value = "Create new service")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Service created"),
+            @ApiResponse(code = 409, message = "Conflict with server") })
+    public Response newService(@ApiParam(value = "User email", required = true) @QueryParam("email") String email,
+                               @ApiParam(value = "Colcoation name", required = true) @QueryParam("name") String colocationName,
+                               @ApiParam(value = "Service title", required = true) @QueryParam("title") String title,
+                               @ApiParam(value = "Service description", required = true) @QueryParam("description") String description,
+                               @ApiParam(value = "Service cost", required = true) @QueryParam("cost") int cost) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
         if(ServiceManager.createService(email,colocationName,title,description, cost)){
             return Response.status(Response.Status.CREATED).build();
         }

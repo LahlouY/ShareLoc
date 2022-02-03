@@ -1,6 +1,6 @@
 package Api;
 
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import manager.AchievedServiceManager;
 import model.AchievedService;
 
@@ -25,11 +25,15 @@ public class AchievedServiceServices extends AbstractServices<AchievedService> {
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newAchievedService(@QueryParam("email") String email,
-                                       @QueryParam("serviceID") Long serviceID,
-                                       @QueryParam("date") String date,
-                                       @QueryParam("picture") String picture,
-                                       @QueryParam("to") List<String> to) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
+    @ApiOperation(value = "Create new achieved Service")
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "New achieved Service created"),
+            @ApiResponse(code = 409, message = "Conflict with server") })
+    public Response newAchievedService(@ApiParam(value = "User email", required = true) @QueryParam("email") String email,
+                                       @ApiParam(value = "Service ID", required = true) @QueryParam("serviceID") Long serviceID,
+                                       @ApiParam(value = "Date of service", required = true) @QueryParam("date") String date,
+                                       @ApiParam(value = "Picture of service", required = true) @QueryParam("picture") String picture,
+                                       @ApiParam(value = "List of users", required = true) @QueryParam("to") List<String> to) throws HeuristicRollbackException,
+            SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
         if (AchievedServiceManager.newAchievedService(email, serviceID, date, picture,to)) {
             return Response.status(Response.Status.CREATED).build();
         }

@@ -1,8 +1,9 @@
 package Api;
 
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import manager.MessageManager;
 import model.Message;
+import model.User;
 
 import javax.naming.NamingException;
 import javax.transaction.HeuristicMixedException;
@@ -26,8 +27,11 @@ public class MessageServices extends AbstractServices<Message> {
     @GET
     @Path("coloc")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMessagesIntoColocation(@QueryParam("email") String email,
-                                              @QueryParam("name") String name){
+    @ApiOperation(value = "Find colocation messages")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Messages found", response = Message.class),
+            @ApiResponse(code = 409, message = "Conflict with server") })
+    public Response getMessagesIntoColocation(@ApiParam(value = "Colocation name", required = true) @QueryParam("email") String email,
+                                              @ApiParam(value = "User email", required = true) @QueryParam("name") String name){
         List<Message> messages = MessageManager.getMessages(email,name);
         if(messages != null){
             return Response.ok(messages.toString()).build();
@@ -39,10 +43,13 @@ public class MessageServices extends AbstractServices<Message> {
     @POST
     @Path("new")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendMessage(@QueryParam("email") String email,
-                                @QueryParam("name") String name,
-                                @QueryParam("message") String message,
-                                @QueryParam("picture") String picture) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
+    @ApiOperation(value = "Send messages")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Messages sent"),
+            @ApiResponse(code = 409, message = "Conflict with server") })
+    public Response sendMessage(@ApiParam(value = "User email", required = true) @QueryParam("email") String email,
+                                @ApiParam(value = "Colocation name", required = true) @QueryParam("name") String name,
+                                @ApiParam(value = "The message", required = true) @QueryParam("message") String message,
+                                @ApiParam(value = "the picture", required = true) @QueryParam("picture") String picture) throws HeuristicRollbackException, SystemException, HeuristicMixedException, NamingException, RollbackException, NotSupportedException {
         if (MessageManager.sendMessage(email,name,message,picture)) {
             return Response.ok().build();
         }
