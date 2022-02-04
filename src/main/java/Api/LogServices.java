@@ -20,7 +20,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("auth")
-@Api
+@Api("/auth")
 public class LogServices {
 
     public LogServices() {
@@ -29,10 +29,7 @@ public class LogServices {
     @GET
     @SigninNeeded
     @Path("whoami")
-    @ApiOperation(value = "Check user authentication",
-            authorizations = {@Authorization(value="bearer",
-                    scopes = { @AuthorizationScope(scope = "whoami", description = "whoami") }
-            )})
+    @ApiOperation(value = "Check user authentication")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "User authenticated", response = User.class),
             @ApiResponse(code = 204, message = "No authentication ") })
     @Produces(MediaType.APPLICATION_JSON)

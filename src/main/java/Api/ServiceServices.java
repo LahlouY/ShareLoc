@@ -1,5 +1,6 @@
 package Api;
 
+import Security.SigninNeeded;
 import io.swagger.annotations.*;
 import manager.ServiceManager;
 import model.Service;
@@ -14,7 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("service")
-@Api
+@SigninNeeded
+@Api("/service")
 public class ServiceServices extends AbstractServices<Service>{
 
     public ServiceServices() {

@@ -100,4 +100,5 @@ public class AbstractDao<T> {
         if(results.size() > 0) return results.get(0);
         return null;
     }
+    
 }
